@@ -11,13 +11,10 @@ import (
 )
 
 // suppress unused package warning
-var (
-	EOL = []byte("\n")
-)
 
 //easyjson:json
 type User struct {
-	Browsers []string `json:"browsers,[]string"`
+	Browsers []string `json:"browsers"`
 	Name     string   `json:"name,string"`
 	Email    string   `json:"email,string"`
 }
@@ -57,7 +54,7 @@ func FastSearch(out io.Writer) {
 		copy(data[position:position+n], buffer[:n])
 
 		position = position + n
-		for index = bytes.Index(data, EOL); index > -1; index = bytes.Index(data, EOL) {
+		for index = bytes.Index(data, []byte("\n")); index > -1; index = bytes.Index(data, []byte("\n")) {
 
 			hasAndroid = false
 			hasMSIE = false
